@@ -17,9 +17,13 @@ Create `local-config/api.properties` in the repository root (the directory is Gi
 apiKey=YOUR_DEVELOPMENT_API_KEY
 ```
 
-Use the development API key expected by the API, not OAuth credentials. For Android, rebuild and reinstall the app after changing the file; Gradle packages it as an asset. For desktop, run from the repository root or `desktopApp` directory and restart after changing it. If the file or property is missing, the apps send an empty key and authenticated requests will fail.
+Use the development API key expected by the API, not OAuth credentials. For Android, rebuild and reinstall the app after changing the file; Gradle packages it as an asset. For desktop development, run from the repository root or `desktopApp` directory and restart after changing it. On Windows, a file at `%LOCALAPPDATA%\XspPulse\api.properties` takes precedence if it exists. If the file or property is missing, the apps send an empty key and authenticated requests will fail.
 
 This is development configuration, not secret storage: the Android key is embedded in the APK and can be extracted. Do not distribute builds containing sensitive credentials or commit the local file.
+
+### Installing on Windows
+
+Build the MSI with `./gradlew --no-configuration-cache :desktopApp:packageMsi`, (`--no-configuration-cache` avoids the current WiX task incompatibility), then run the installer from `desktopApp/build/compose/binaries/main/msi/`. Create `%LOCALAPPDATA%\XspPulse\api.properties` for your Windows account with the same `apiKey=YOUR_DEVELOPMENT_API_KEY` format shown above, and restart the application after changing it. The installer does not include this file. If it is absent, the application falls back to the development paths described above.
 
 ### Running the apps
 

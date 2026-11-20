@@ -6,7 +6,10 @@ import java.io.File
 import java.util.Properties
 
 fun main() = application {
-    val config = listOf(File("local-config/api.properties"), File("../local-config/api.properties"))
+    val installedConfig = System.getenv("LOCALAPPDATA")
+        ?.takeIf { it.isNotBlank() }
+        ?.let { File(it, "XspPulse/api.properties") }
+    val config = listOfNotNull(installedConfig, File("local-config/api.properties"), File("../local-config/api.properties"))
         .firstOrNull { it.isFile }
     val apiKey = if (config != null) {
         config.inputStream().use { Properties().apply { load(it) }.getProperty("apiKey", "") }
