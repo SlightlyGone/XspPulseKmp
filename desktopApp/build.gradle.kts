@@ -23,6 +23,9 @@ compose.desktop {
             targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
             packageName = "com.xsppulse.app"
             packageVersion = "1.0.0"
+            windows {
+                iconFile.set(project.file("src/main/resources/windows/xsppulse.ico"))
+            }
         }
     }
 }

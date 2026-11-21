@@ -25,6 +25,12 @@ This is development configuration, not secret storage: the Android key is embedd
 
 Build the MSI with `./gradlew --no-configuration-cache :desktopApp:packageMsi`, (`--no-configuration-cache` avoids the current WiX task incompatibility), then run the installer from `desktopApp/build/compose/binaries/main/msi/`. Create `%LOCALAPPDATA%\XspPulse\api.properties` for your Windows account with the same `apiKey=YOUR_DEVELOPMENT_API_KEY` format shown above, and restart the application after changing it. The installer does not include this file. If it is absent, the application falls back to the development paths described above.
 
+### Application icons
+
+The supplied XspPulse launcher assets are in `androidApp/src/main/res/mipmap-*`, with their background color in `values/colors_xsppulse_icon.xml`. They include standard and round icons, adaptive foregrounds, and the Android 13 monochrome variant for themed icons. Rebuild with `./gradlew :androidApp:assembleDebug` and install `androidApp/build/outputs/apk/debug/androidApp-debug.apk` (for example, `adb install -r androidApp/build/outputs/apk/debug/androidApp-debug.apk`) to update an existing installation signed with the same key.
+
+Windows packaging uses `desktopApp/src/main/resources/windows/xsppulse.ico` for the executable and MSI. Rebuild and reinstall the MSI as described above to update the installed executable and shortcuts. If Windows still shows the previous icon, unpin and re-pin the application; Explorer may retain cached icons until it is restarted or you sign out and back in.
+
 ### Running the apps
 
 Use the run configurations provided by the run widget in your IDE's toolbar. You can also use these commands and options:
